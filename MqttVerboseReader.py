@@ -41,7 +41,15 @@ dataLogFile.close()
 #client.subscribe("$SYS/formatted/ <formatted data Channel-name> ")
 
 print("Subscribing to topic","formatted/gear")
+print("Subscribing to topic","formatted/auto_acc_flag")
+print("Subscribing to topic","formatted/debug_mode")
+print("Subscribing to topic","formatted/datalog_on-off")
+print("Subscribing to topic","formatted/telemetria_on-off")
 client.subscribe("data/formatted/gear") #subscribing to gear Channel
+client.subscribe("data/formatted/auto_acc_flag")
+client.subscribe("data/formatted/debug_mode")
+client.subscribe("data/formatted/datalog_on-off")
+client.subscribe("data/formatted/telemetria_on-off")
 
 parser = argparse.ArgumentParser();
 parser.add_argument("-v", "--verbose", help="shows output", action="store_true");
