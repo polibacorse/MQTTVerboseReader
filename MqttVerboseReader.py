@@ -41,7 +41,7 @@ dataLogFile.close()
 #client.subscribe("$SYS/formatted/ <formatted data Channel-name> ")
 
 print("Subscribing to topic","formatted/gear")
-client.subscribe("data/formatted/gear") #subscribing to OilPressure Channel
+client.subscribe("data/formatted/gear") #subscribing to gear Channel
 
 parser = argparse.ArgumentParser();
 parser.add_argument("-v", "--verbose", help="shows output", action="store_true");
