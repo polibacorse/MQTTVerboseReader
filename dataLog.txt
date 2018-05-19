@@ -1,0 +1,28 @@
+
+started new session
+
+data/formatted/gear said: {"time":123,"value":9}
+
+data/formatted/gear said: {"time":123,"value":1}
+
+data/formatted/gear said: {"time":123,"value":2}
+
+data/formatted/gear said: {"time":123,"value":3}
+
+data/formatted/gear said: {"time":123,"value":4}
+
+data/formatted/gear said: {"time":123,"value":5}
+
+data/formatted/gear said: {"time":123,"value":6}
+
+data/formatted/gear said: {"time":123,"value":7}
+
+started new session
+
+data/formatted/gear said: {"time":123,"value":1}
+
+data/formatted/gear said: {"time":123,"value":2}
+
+data/formatted/gear said: {"time":123,"value":3}
+
+data/formatted/gear said: {"time":123,"value":4}
