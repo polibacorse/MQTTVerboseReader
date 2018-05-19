@@ -45,5 +45,5 @@ client.subscribe("data/formatted/gear") #subscribing to OilPressure Channel
 
 parser = argparse.ArgumentParser();
 parser.add_argument("-v", "--verbose", help="shows output", action="store_true");
-args = parsers.parse_args()
+args = parser.parse_args()
 client.loop_forever() #start the loop
