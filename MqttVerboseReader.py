@@ -1,5 +1,6 @@
 import paho.mqtt.client as mqtt #import the client1
 import time
+import argparse
 
 ############ Printing Received Data Function
 
@@ -10,8 +11,10 @@ def on_message(client, userdata, message):
     dataLogFile.write(message.topic)
     dataLogFile.write(" said: ")
     dataLogFile.write(str(message.payload.decode("utf-8")))
-    print(message.topic,"says: ",str(message.payload.decode("utf-8")))
     dataLogFile.close()
+    if args.verbose:
+        print(message.topic,"says: ",str(message.payload.decode("utf-8")))
+        
     
                 
 ########################################
@@ -40,4 +43,7 @@ dataLogFile.close()
 print("Subscribing to topic","formatted/gear")
 client.subscribe("data/formatted/gear") #subscribing to OilPressure Channel
 
+parser = argparse.ArgumentParser();
+parser.add_argument("-v", "--verbose", help="shows output", action="store_true");
+args = parsers.parse_args()
 client.loop_forever() #start the loop
