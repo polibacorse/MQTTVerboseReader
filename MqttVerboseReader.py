@@ -4,7 +4,7 @@ import argparse
 
 ############ Printing Received Data Function
 
-def on_message(client, userdata, message):
+def on_message(client, userdata, message): 
     
     dataLogFile = open("dataLog.txt", "a")
     dataLogFile.write('\n')
@@ -38,7 +38,7 @@ dataLogFile.close()
 ##SUBSCRIPTIONS
 
 #to subscribe just type:
-#client.subscribe("$SYS/formatted/ <formatted data Channel-name> ")
+#client.subscribe("data/formatted/ <formatted data Channel-name> ")
 
 print("Subscribing to topic","formatted/gear")
 print("Subscribing to topic","formatted/auto_acc_flag")
@@ -51,7 +51,10 @@ client.subscribe("data/formatted/debug_mode")
 client.subscribe("data/formatted/datalog_on-off")
 client.subscribe("data/formatted/telemetria_on-off")
 
+## code to handle verbose mode
 parser = argparse.ArgumentParser();
 parser.add_argument("-v", "--verbose", help="shows output", action="store_true");
 args = parser.parse_args()
+###############################################
+
 client.loop_forever() #start the loop
