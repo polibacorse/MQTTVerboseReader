@@ -2,19 +2,28 @@ import paho.mqtt.client as mqtt  # import the client1
 import time
 import argparse
 
+global dataFlag
+dataFlag = False
 
 # Printing Received Data Function
 
-def on_message(client, userdata, message): 
-    
-    dataLogFile = open("dataLog.txt", "a")
-    dataLogFile.write('\n')
-    dataLogFile.write(message.topic)
-    dataLogFile.write(" said: ")
-    dataLogFile.write(str(message.payload.decode("utf-8")))
-    dataLogFile.close()
+
+def on_message(client, userdata, message):
+
+    global dataFlag
+
+    if message.topic == "data/formatted/datalog_on-off": # reading datalog switch state from MQTT
+        dataFlag = message.payload
+
+    if dataFlag == "True":   # If datalog switch is on, dataFlag will be true and the datalog will save data
+        dataLogFile = open("dataLog.txt", "a")
+        dataLogFile.write('\n')
+        dataLogFile.write(message.topic)
+        dataLogFile.write(" said: ")
+        dataLogFile.write(str(message.payload.decode("utf-8")))
+        dataLogFile.close()
     if args.verbose:
-        print(message.topic,"says: ",str(message.payload.decode("utf-8")))
+        print(message.topic, "says: ", str(message.payload.decode("utf-8")))
         
 
 ########################################
@@ -28,7 +37,7 @@ client.on_message = on_message  # attach function to callback
 
 print("connecting to broker")
 client.connect("localhost")  # connect to broker
-dataLogFile = open("dataLog.txt","a")
+dataLogFile = open("dataLog.txt", "a")
 dataLogFile.write("\n")
 dataLogFile.write("started new session")
 dataLogFile.close()
