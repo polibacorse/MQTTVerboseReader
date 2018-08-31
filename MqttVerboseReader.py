@@ -1,6 +1,7 @@
 import paho.mqtt.client as mqtt  # import the client1
 import time
 import argparse
+import json
 
 global dataFlag
 dataFlag = False
@@ -13,8 +14,9 @@ def on_message(client, userdata, message):
     global dataFlag
 
     if message.topic == "data/formatted/datalog_on-off": # reading datalog switch state from MQTT
-        dataFlag = message.payload
-
+        messageJSON = json.loads(message.payload.decode("utf-8"))
+        dataFlag = messageJSON["value"]
+        
     if dataFlag == "True":   # If datalog switch is on, dataFlag will be true and the datalog will save data
         dataLogFile = open("dataLog.txt", "a")
         dataLogFile.write('\n')
