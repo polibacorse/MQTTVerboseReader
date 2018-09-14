@@ -3,27 +3,16 @@ import time
 import argparse
 import json
 
-global dataFlag
-dataFlag = False
-
 # Printing Received Data Function
 
 
 def on_message(client, userdata, message):
 
-    global dataFlag
-
-    if message.topic == "data/formatted/datalog_on-off": # reading datalog switch state from MQTT
-        messageJSON = json.loads(message.payload.decode("utf-8"))
-        dataFlag = messageJSON["value"]
+    # TODO: Open the file at program startup. Close it on SIGINT or flush periodically.
+    # TODO: verify that file will be created with 'a' mode if it does not exist.
+    with open('datalog.txt', 'a') as f:
+        f.write('\n{}: {}'.format(message.topic, message.payload.decode('utf-8')))
         
-    if dataFlag == "True":   # If datalog switch is on, dataFlag will be true and the datalog will save data
-        dataLogFile = open("dataLog.txt", "a")
-        dataLogFile.write('\n')
-        dataLogFile.write(message.topic)
-        dataLogFile.write(" said: ")
-        dataLogFile.write(str(message.payload.decode("utf-8")))
-        dataLogFile.close()
     if args.verbose:
         print(message.topic, "says: ", str(message.payload.decode("utf-8")))
         
@@ -50,16 +39,9 @@ dataLogFile.close()
 # to subscribe just type:
 # client.subscribe("data/formatted/ <formatted data Channel-name> ")
 
-print("Subscribing to topic","formatted/gear")
-print("Subscribing to topic","formatted/auto_acc_flag")
-print("Subscribing to topic","formatted/debug_mode")
-print("Subscribing to topic","formatted/datalog_on-off")
-print("Subscribing to topic","formatted/telemetria_on-off")
-client.subscribe("data/formatted/gear")  # subscribing to gear Channel
-client.subscribe("data/formatted/auto_acc_flag")
-client.subscribe("data/formatted/debug_mode")
-client.subscribe("data/formatted/datalog_on-off")
-client.subscribe("data/formatted/telemetria_on-off")
+print("Subscribing")
+client.subscribe("data/formatted/#")
+client.subscribe("data/raw")
 
 
 # code to handle verbose mode
