@@ -10,10 +10,9 @@ import json
 
 def on_message(client, userdata, message):
 
-    # TODO: Open the file at program startup. Close it on SIGINT or flush periodically.
-    # TODO: verify that file will be created with 'a' mode if it does not exist.
     with open('datalog.txt', 'a') as f:
         f.write('\n{}: {}'.format(message.topic, message.payload.decode('utf-8')))
+        
         
     if args.verbose:
         print(message.topic, "says: ", str(message.payload.decode("utf-8")))
