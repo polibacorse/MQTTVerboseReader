@@ -29,7 +29,7 @@ client.on_message = on_message  # attach function to callback
 
 print("connecting to broker")
 client.connect("localhost")  # connect to broker
-dataLogFile = open("dataLog.txt", "a")
+dataLogFile = open("datalog.txt", "a")
 dataLogFile.write("\n")
 dataLogFile.write("started new session")
 dataLogFile.close()
